@@ -29,7 +29,6 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
     def get_queryset(self):
-        print(self.request.user.role)
         if self.request.user.role == "admin":
             return User.objects.all()
         else:
@@ -184,7 +183,6 @@ class CartViewSet(viewsets.ModelViewSet):
     def products(self, request, pk=None):
         try:
             cart = self.get_object()
-            print("geldim")
             products = cart.products.all()
             serializer = ProductSerializer(products, many=True)
             return Response(serializer.data)
